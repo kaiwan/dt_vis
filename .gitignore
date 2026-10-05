@@ -1,0 +1,7 @@
+# coverage harness output
+/coverage/
+# generated test fixtures (rebuilt by tests/30_backends.bats setup_file)
+/tests/data/
+# python bytecode from the test helper
+__pycache__/
+*.pyc
