@@ -1,0 +1,7 @@
+/ {
+	extras {
+		extra_node: extra@1 {
+			compatible = "vendor,extra";
+		};
+	};
+};

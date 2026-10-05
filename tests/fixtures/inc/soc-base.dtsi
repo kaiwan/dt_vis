@@ -1,0 +1,12 @@
+#include "sub/pmic.dtsi"
+
+/ {
+	soc: soc@0 {
+		compatible = "simple-bus";
+
+		i2c_a: i2c@a000 {
+			compatible = "vendor,i2c";
+			status = "disabled";
+		};
+	};
+};

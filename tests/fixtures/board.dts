@@ -1,0 +1,89 @@
+/dts-v1/;
+
+/*
+ * A small, self-contained tree that dtc(1) can actually compile, so the
+ * same logical tree can be checked through all three back-ends
+ * (dts source, compiled dtb, device-tree filesystem).
+ */
+
+/ {
+	compatible = "acme,demoboard";
+	model = "ACME demo board";
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	chosen {
+		bootargs = "console=ttyS0,115200 root=/dev/mmcblk0p2";
+		stdout-path = &uart0;
+	};
+
+	aliases {
+		serial0 = &uart0;
+	};
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		cpu0: cpu@0 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <0>;
+			next-level-cache = <&l2>;
+		};
+
+		cpu1: cpu@1 {
+			device_type = "cpu";
+			compatible = "arm,cortex-a53";
+			reg = <1>;
+			next-level-cache = <&l2>;
+		};
+
+		l2: l2-cache {
+			compatible = "cache";
+			cache-level = <2>;
+			cache-unified;
+		};
+	};
+
+	memory@40000000 {
+		device_type = "memory";
+		reg = <0x40000000 0x20000000>;
+	};
+
+	soc {
+		compatible = "simple-bus";
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		uart0: serial@9000000 {
+			compatible = "arm,pl011", "arm,primecell";
+			reg = <0x9000000 0x1000>;
+			status = "okay";
+			local-mac-address = [de ad be ef 00 01];
+		};
+
+		i2c0: i2c@9010000 {
+			compatible = "snps,designware-i2c";
+			reg = <0x9010000 0x1000>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+			status = "disabled";
+
+			rtc@68 {
+				compatible = "dallas,ds1307";
+				reg = <0x68>;
+			};
+		};
+	};
+};
+
+&i2c0 {
+	status = "okay";
+
+	eeprom@50 {
+		compatible = "atmel,24c02";
+		reg = <0x50>;
+	};
+};

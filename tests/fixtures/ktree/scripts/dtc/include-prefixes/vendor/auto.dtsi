@@ -1,0 +1,7 @@
+/ {
+	autobus {
+		auto_node: auto@1 {
+			compatible = "vendor,auto";
+		};
+	};
+};

@@ -1,0 +1,7 @@
+/ {
+	pmics {
+		pmic_glink: pmic-glink {
+			compatible = "qcom,pmic-glink";
+		};
+	};
+};

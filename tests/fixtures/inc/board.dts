@@ -1,0 +1,32 @@
+/dts-v1/;
+/*
+ * Primary file for the include-resolution tests.  Exercises: a header that
+ * must be skipped, a quoted include, an angle include found via -I, a
+ * duplicate include, and fragments whose labels live in included files.
+ */
+#include <dt-bindings/clock/fake.h>
+#include "soc-base.dtsi"
+#include <vendor/extra.dtsi>
+#include "sub/pmic.dtsi"
+
+/ {
+	model = "ACME include test board";
+	compatible = "acme,inctest";
+};
+
+&i2c_a {
+	status = "okay";
+
+	eeprom@50 {
+		compatible = "atmel,24c02";
+		reg = <0x50>;
+	};
+};
+
+&pmic_glink {
+	status = "okay";
+};
+
+&extra_node {
+	acme,tweaked;
+};

@@ -1,0 +1,10 @@
+/dts-v1/;
+#include <vendor/auto.dtsi>
+
+/ {
+	model = "auto-detect test";
+};
+
+&auto_node {
+	status = "okay";
+};
